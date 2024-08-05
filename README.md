@@ -7,6 +7,7 @@ This is the public code repository of paper 'Comprehensive Assessment of Jailbre
 2. ```conda create -n CJA python=3.9```
 3. ```pip install -r requirements.txt```
 ### Use our labeling method to label your own results
+**Option 1: label single file**  
 1. Switch directory:```cd ./scripts_label```
 2. ```python label.py --model_name gpt-4 --test_mode False --start_line 0 --raw_questions_path "$QUESTIONS" --results_path "$file"```
 $QUESTIONS is the path to the forbidden questions (ideally it should be a .csv file, refer to ./forbidden_questions/forbidden_questions.csv for example).
@@ -19,7 +20,7 @@ answers.append({'response': answer})
 with open(output_file, 'w') as out_file:
     json.dump(answers, out_file, indent=4)
 ```
-**Optional**
+**Option 2: label files in a directory**  
 You may also utilize label.sh to label files in a directory.
 ```bash label.sh PATH_TO_RESPONSES_DIRECTORY```
 The files storing the labels will be save to the same directory where you store the jailbreak responses.
