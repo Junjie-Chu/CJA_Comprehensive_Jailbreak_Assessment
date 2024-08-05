@@ -1,5 +1,8 @@
 # CJA_Comprehensive_Jailbreak_Assessment
-This is the public code repository of paper 'Comprehensive Assessment of Jailbreak Attacks Against LLMs.'
+[![website: online](https://img.shields.io/badge/website-online-blue.svg)](https://junjie-chu.github.io/Public_Comprehensive_Assessment_Jailbreak/)
+[![dataet: released](https://img.shields.io/badge/dataset-released-green.svg)](https://github.com/Junjie-Chu/CJA_Comprehensive_Jailbreak_Assessment/tree/main/forbidden_questions)
+
+This is the public repository of paper [*Comprehensive Assessment of Jailbreak Attacks Against LLMs*](https://arxiv.org/abs/2402.05668). 
 
 ## How to use this repository?
 ### Install and set the ENV
