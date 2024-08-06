@@ -7,8 +7,13 @@ This is the public repository of paper [*Comprehensive Assessment of Jailbreak A
 ## How to use this repository?
 ### Install and set the ENV
 1. Clone this repository.
-2. ```conda create -n CJA python=3.9```
-3. ```pip install -r requirements.txt```
+2. Prepare the python ENV.
+```
+conda create -n CJA python=3.9
+conda activate CJA
+cd PATH_TO_THE_REPOSITORY
+pip install -r requirements.txt
+```
 ### Use our labeling method to label your own results
 
 **Option 1: label single file**  
