@@ -42,7 +42,7 @@ bash label.sh PATH_TO_RESPONSES_DIRECTORY
 ***The files storing the labels will be save to the same directory where you store the jailbreak responses.*** 
 
 ## Add new results to the leaderboard.
-Welcome to submit your own evaluation results to us. 
+Welcome to submit your own evaluation results (steps = 50) to us. 
 The leaderboard is available [here](https://junjie-chu.github.io/Public_Comprehensive_Assessment_Jailbreak/leaderboard).
 
 *Full codes will be released after the papaer is accepted.* 
