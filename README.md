@@ -2,7 +2,8 @@
 [![website: online](https://img.shields.io/badge/website-online-blue.svg)](https://junjie-chu.github.io/Public_Comprehensive_Assessment_Jailbreak/)
 [![dataet: released](https://img.shields.io/badge/dataset-released-green.svg)](https://github.com/Junjie-Chu/CJA_Comprehensive_Jailbreak_Assessment/tree/main/forbidden_questions)
 
-This is the public repository of paper [*Comprehensive Assessment of Jailbreak Attacks Against LLMs*](https://arxiv.org/abs/2402.05668). 
+This is the public repository of the paper [*Comprehensive Assessment of Jailbreak Attacks Against LLMs*](https://arxiv.org/abs/2402.05668).  
+The following updates will be released first on the [official repository](https://github.com/TrustAIRLab/Comprehensive_Jailbreak_Assessment).
 
 ## How to use this repository?
 ### Install and set the ENV
@@ -44,10 +45,10 @@ You may also utilize label.sh to label files in a directory:
 ```
 bash label.sh PATH_TO_RESPONSES_DIRECTORY
 ```
-***The files storing the labels will be save to the same directory where you store the jailbreak responses.*** 
+***The files storing the labels will be saved to the same directory where you store the jailbreak responses.*** 
 
 ## Add new results to the leaderboard.
 Welcome to submit your own evaluation results (steps = 50) to us. 
 The leaderboard is available [here](https://junjie-chu.github.io/Public_Comprehensive_Assessment_Jailbreak/leaderboard).
 
-*Full codes will be released after the papaer is accepted.* 
+*Full codes will be released after the paper is accepted.* 
