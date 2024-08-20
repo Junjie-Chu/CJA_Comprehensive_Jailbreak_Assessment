@@ -1,26 +1,25 @@
+"""Scripts for moderation API."""
 import os
-# Set the cache directory path
-cache_dir_path = "PATH_TO_YOUR_HF_CACHE"
-os.environ["HF_HOME"] = cache_dir_path
 import argparse
 import json
 import csv
-import pandas as pd
-from tqdm import tqdm  # Import tqdm
-import backoff 
-import pandas as pd
-import tiktoken
 from openai import OpenAI
+# Set the cache directory path
+cache_dir_path = "PATH_TO_YOUR_HF_CACHE"
+os.environ["HF_HOME"] = cache_dir_path
+
 
 client = OpenAI(api_key = "YOUR_OPENAI_KEY_HERE")
 
 def openai_moderation_measure(text:str):
+    """Moderation API outputs the flags."""
     response = client.moderations.create(input=text)
     response_dict = response.model_dump()
     flag = response_dict['results'][0]['flagged']
     return flag
 
 def main(input_file_path, output_folder_path):
+    """Main function for moderation API. Output CSV."""
     with open(input_file_path, 'r') as f:
         data = json.load(f)
 

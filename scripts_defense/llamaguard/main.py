@@ -1,20 +1,16 @@
+"""Scripts for llama-guard series."""
 import os
-# Set the cache directory path
-cache_dir_path = "PATH_TO_YOUR_HF_CACHE"
-os.environ["HF_HOME"] = cache_dir_path
 import argparse
 import json
 import csv
-import pandas as pd
 from vllm import LLM, SamplingParams
-import openai
-from tqdm import tqdm  # Import tqdm
-import backoff 
-import pandas as pd
-from transformers import AutoTokenizer,LlamaTokenizer
-import tiktoken
+from transformers import AutoTokenizer
+# Set the cache directory path
+cache_dir_path = "PATH_TO_YOUR_HF_CACHE"
+os.environ["HF_HOME"] = cache_dir_path
 
 def message_generation_llamaguard(adv_prompt):
+    """Prepare the input message for llama-gurad models."""
     message = [ {
                 "role": "user",
                 "content": adv_prompt
@@ -23,7 +19,7 @@ def message_generation_llamaguard(adv_prompt):
     return message
 
 def main(guard, input_file_path, output_folder_path):
-
+    """Main function for llama-guard models. Output CSV."""
     # Create a sampling params object.
     sampling_params = SamplingParams(temperature=0.7, top_p=0.95, max_tokens=256)
 

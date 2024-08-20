@@ -1,5 +1,4 @@
-from transformers import AutoTokenizer, AutoModel, AutoModelForCausalLM
-# transformers==4.43.0
+"""Scripts for labeling the responses."""
 import json
 import os
 import argparse
@@ -12,6 +11,7 @@ import tiktoken
 os.environ["HF_HOME"] = "PATH_TO_CACHE"
 
 def str2bool(v):
+    """Function convert the input type in the command line."""
     if isinstance(v, bool):
         return v
     if v.lower() in ('yes', 'true', 't', 'y', '1'):
@@ -22,11 +22,20 @@ def str2bool(v):
         raise argparse.ArgumentTypeError('Boolean value expected.')
 
 parser = argparse.ArgumentParser(description="LLM Response Label Script")
-parser.add_argument("--raw_questions_path", type=str, default='../forbidden_questions/forbidden_questions.txt', help="Path to the file containing RAW questions")
+parser.add_argument("--raw_questions_path",
+                    type=str,
+                    default='../forbidden_questions/forbidden_questions.txt',
+                    help="Path to the file containing RAW questions")
 parser.add_argument("--results_path", type=str, help="Path to the JSON file containing responses")
 parser.add_argument("--model_name", type=str, default='gpt-4', help="Name of the LLM to use")
-parser.add_argument("--start_line", type=int, default=0, help="Line number to start processing from")
-parser.add_argument("--test_mode", type = str2bool, default=False, help="If in test model, the script will run 3 iterations.")
+parser.add_argument("--start_line",
+                    type=int,
+                    default=0,
+                    help="Line number to start processing from")
+parser.add_argument("--test_mode",
+                    type = str2bool,
+                    default=False,
+                    help="If in test model, the script will run 3 iterations.")
 
 args = parser.parse_args()
 
@@ -34,6 +43,7 @@ client = OpenAI(api_key = "YOUR_API_KEY")
 
 @backoff.on_exception(backoff.expo, openai.RateLimitError)
 def completions_with_backoff(**kwargs):
+    """Client chat with backoff module"""
     return client.chat.completions.create(**kwargs)
 
 def num_tokens_from_string(string: str, encoding_name: str) -> int:
@@ -43,6 +53,7 @@ def num_tokens_from_string(string: str, encoding_name: str) -> int:
     return num_tokens
 
 def change_extension(results_path):
+    """Function convert the input type in the command line."""
     # Check if end with .json
     if results_path.endswith('.json'):
         # Replace .json with _label.txt
@@ -67,15 +78,15 @@ if raw_questions_extension == '.txt':
         # json
         with open(results_path, 'r') as file1:
             rs = json.load(file1)
-        
+
         # Fetch the questions
         # txt
         with open(raw_questions_path, 'r') as file2:
             qs = file2.readlines()
-            
+
         print(f"[TXT] {len(qs)} question lines in total.")
         print(f"{len(rs)} result lines in total.")
-        
+
         if len(qs) != len(rs):
             raise Exception("Question NUM do not matches Result NUM!")
         else:
@@ -199,20 +210,13 @@ for i in tqdm(range(start_line, end_line, steps)):
     print("LABEL:")
     print(str(answer).replace(" ", ""))
 
-    if args.test_mode == True:
+    if args.test_mode is True:
         if i == 2:
             print('IN TEST MODE, i=2 BREAK!')
             break
     else:
         pass
 
-    # In the first version, when the first line is in the 1st or 2nd condition, the user_prompt is empty, thus causing error.
-    # But if not the first line, the print commant will print the PREVIOUS user_prompt for log. 
-    # However, the label still depends on current r, therefore the label is also right.
-    # When in the 3rd condition, the user_prompt will be set to current q and r, then judge.
-    # So the label always depends on current user_prompt.
-
-# After the loop, the final output file will be saved.
 if raw_questions_extension == '.csv':
     final_df = df.iloc[start_line:].copy()
     final_df['tri_label'] = answers
@@ -220,10 +224,3 @@ if raw_questions_extension == '.csv':
     final_df.to_csv(output_path_final, index=True)
 else:
     pass
-
-# If want to remove the tmp file, uncomment the following code.
-# if os.path.exists(output_path):
-#     os.remove(output_path)
-#     print(f"tmp file {output_path} has been removed.")
-# else:
-#     print(f"tmp file {output_path} does not exist.")

@@ -1,19 +1,16 @@
+"""Scripts for promptguard."""
 import os
+import argparse
+import json
+import csv
+import torch
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
 # Set the cache directory path
 cache_dir_path = "PATH_TO_YOUR_HF_CACHE"
 os.environ["HF_HOME"] = cache_dir_path
-import argparse
-import torch
-import json
-import csv
-import pandas as pd
-import openai
-from tqdm import tqdm  # Import tqdm
-import pandas as pd
-from transformers import AutoTokenizer, AutoModelForSequenceClassification
-import tiktoken
 
 def main(guard, input_file_path, output_folder_path):
+    """Main function. Output CSV."""
 
     # Create an LLM.
     model_dict = {
@@ -31,7 +28,7 @@ def main(guard, input_file_path, output_folder_path):
 
     harms = []
     for i in range(len(sequences)):
-        prompts = []
+        # prompts = []
         sequence = sequences[i]
         text = sequence
         inputs = tokenizer(text, return_tensors="pt")
