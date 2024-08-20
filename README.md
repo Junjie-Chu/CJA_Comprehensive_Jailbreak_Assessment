@@ -10,12 +10,12 @@ The following updates will be released first on the [official repository](https:
 1. Clone this repository.
 2. Prepare the python ENV.
 ```
-conda create -n CJA python=3.9
+conda create -n CJA python=3.10
 conda activate CJA
 cd PATH_TO_THE_REPOSITORY
 pip install -r requirements.txt
 ```
-### Use our labeling method to label your own results
+### Label - use our labeling method to label the responses after jailbreak.
 
 **Option 1: label single file**  
 1. Switch directory:  
@@ -38,7 +38,7 @@ answers.append({'response': answer})
 with open(output_file, 'w') as out_file:
     json.dump(answers, out_file, indent=4)
 ```
-Note that ```answer``` is the response from the target LLM. 
+Note that ```answer``` is the response from the target LLM suffering jailbreak attacks. 
 
 **Option 2: label files in a directory**  
 You may also utilize label.sh to label files in a directory:  
@@ -47,8 +47,39 @@ bash label.sh PATH_TO_RESPONSES_DIRECTORY
 ```
 ***The files storing the labels will be saved to the same directory where you store the jailbreak responses.*** 
 
+### Defense - use our defense scripts to detect the jailbreak prompts (adv prompts).
+1. Switch directory:  
+```
+cd ./scripts_defense
+```
+2. Execute the defense:
+```
+bash ./defense_execute.sh DEFENSE_METHOD PATH_TO_YOUR_ADV_PROMPTS_FOLDER
+```
+Currently, seven defense methods are supported (refer to ./scripts_defense/defense_execute.sh for details).
+
+The adv prompts folder should follow such a structure:
+```
+example_adv_prompts
+└─ adv_basic.json
+```
+The ```.json``` file could be obtained by the following codes:
+```
+adv_prompts = [prompt_1, prompt_2, ...] # a list of adv prompts
+json_file = OUTPUT_PATH
+with open(json_file, 'w') as outfile:
+    json.dump(adv_prompts, outfile, indent=4)
+```
+Refer to folder ./example_adv_prompts for an example.  
+
 ## Add new results to the leaderboard.
-Welcome to submit your own evaluation results (steps = 50) to us. 
+Welcome to submit your own evaluation results (steps = 50) of jailbreak attacks to us. 
 The leaderboard is available [here](https://junjie-chu.github.io/Public_Comprehensive_Assessment_Jailbreak/leaderboard).
 
 *Full codes will be released after the paper is accepted.* 
+
+## TO DO
+
+- [ ] Check the env file requirements.txt.
+- [ ] Test the guide in the README.md.
+- [ ] Clean the codes/comments.
