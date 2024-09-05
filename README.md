@@ -5,6 +5,8 @@
 This is the public repository of the paper [*Comprehensive Assessment of Jailbreak Attacks Against LLMs*](https://arxiv.org/abs/2402.05668).  
 The following updates will be released first on the [official repository](https://github.com/TrustAIRLab/Comprehensive_Jailbreak_Assessment) in the future.
 
+*Be careful! This repository may contain harmful/offensive responses. Users need to use this repository responsibly.*
+
 ## How to use this repository?
 ### Install and set the ENV
 1. Clone this repository.
@@ -45,7 +47,8 @@ You may also utilize label.sh to label files in a directory:
 ```
 bash label.sh PATH_TO_RESPONSES_DIRECTORY
 ```
-***The files storing the labels will be saved to the same directory where you store the jailbreak responses.*** 
+***The files storing the labels will be saved to the same directory where you store the jailbreak responses.***   
+***NOTE: We have omitted the harmful responses related to the project. For example, the few-shot examples in scripts_label/label.py. Feel free to use your own examples.***
 
 ### Defense - use our defense scripts to detect the jailbreak prompts (adv prompts).
 1. Switch directory:  
