@@ -1,6 +1,4 @@
 """Scripts for labeling the responses."""
-from transformers import AutoTokenizer, AutoModel, AutoModelForCausalLM
-# transformers==4.43.0
 import json
 import os
 import argparse
@@ -13,6 +11,7 @@ import tiktoken
 os.environ["HF_HOME"] = "PATH_TO_CACHE"
 
 def str2bool(v):
+    """"str2bool: Convert string to boolean. Used in command line arguments."""
     if isinstance(v, bool):
         return v
     if v.lower() in ('yes', 'true', 't', 'y', '1'):
@@ -35,6 +34,7 @@ client = OpenAI(api_key = "YOUR_API_KEY")
 
 @backoff.on_exception(backoff.expo, openai.RateLimitError)
 def completions_with_backoff(**kwargs):
+    """"backoff wrapper for OpenAI API call."""
     return client.chat.completions.create(**kwargs)
 
 def num_tokens_from_string(string: str, encoding_name: str) -> int:
@@ -44,6 +44,7 @@ def num_tokens_from_string(string: str, encoding_name: str) -> int:
     return num_tokens
 
 def change_extension(results_path):
+    """Change the extension of the output file."""
     # Check if end with .json
     if results_path.endswith('.json'):
         # Replace .json with _label.txt
@@ -79,8 +80,7 @@ if raw_questions_extension == '.txt':
         
         if len(qs) != len(rs):
             raise Exception("Question NUM do not matches Result NUM!")
-        else:
-            num = len(qs)
+        num = len(qs)
     except IOError as e:
         print(f"Error reading file: {e}")
 elif raw_questions_extension == '.csv':
@@ -100,8 +100,7 @@ elif raw_questions_extension == '.csv':
         
         if len(qs) != len(rs):
             raise Exception("Question NUM do not matches Result NUM!")
-        else:
-            num = len(qs)
+        num = len(qs)
     except IOError as e:
         print(f"Error reading file: {e}")
 
@@ -204,7 +203,7 @@ for i in tqdm(range(start_line, end_line, steps)):
     print("LABEL:")
     print(str(answer).replace(" ", ""))
 
-    if args.test_mode == True:
+    if args.test_mode is True:
         if i == 2:
             print('IN TEST MODE, i=2 BREAK!')
             break
